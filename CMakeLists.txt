@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 3.5)
 
-# THIS IS QUICL AND DIRTY ONLY FOR GLFW and
+# QUICK AND DIRTY cmake
 project(ImPlot CXX)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(BuildExternalProject)
-
 
 BuildExternalProject(
     NAME imgui
@@ -25,11 +24,10 @@ file(GLOB IMPLOT_SOURCES
     implot_items.cpp
 )
 
-
-add_library(${PROJECT_NAME} STATIC imgui_target)
-target_sources(${PROJECT_NAME} PRIVATE ${IMPLOT_SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE imgui)
+add_library(ImPlot STATIC imgui_target)
+target_sources(ImPlot PRIVATE ${IMPLOT_SOURCES})
+target_link_libraries(ImPlot PRIVATE imgui)
 
 # Install
-install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+install(TARGETS ImPlot DESTINATION lib)
 install(FILES ${IMPLOT_SOURCES} DESTINATION include/ImPlot)
