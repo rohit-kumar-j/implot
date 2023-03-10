@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 # QUICK AND DIRTY cmake
-project(ImPlot CXX)
+project(ImPlot_Project CXX)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(BuildExternalProject)
@@ -14,8 +14,17 @@ BuildExternalProject(
     INSTALL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external
     BUILD_TYPE Release
     ARCHITECTURE x64
+    BUILD_IN_SOURCE TRUE
 )
+append_cmake_prefix_path(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/x64-Release/imgui)
 
+# include(FetchContent)
+# FetchContent_Declare(imgui GIT_REPOSITORY https://github.com/rohit-kumar-j/imgui.git)
+# FetchContent_GetProperties(imgui)
+# if(NOT imgui_POPULATED)
+# FetchContent_Populate(imgui)
+# add_subdirectory(${imgui_SOURCE_DIR} ${imgui_BINARY_DIR} EXCLUDE_FROM_ALL)
+# endif()
 file(GLOB IMPLOT_SOURCES
     implot.cpp
     implot.h
@@ -25,14 +34,12 @@ file(GLOB IMPLOT_SOURCES
 )
 
 add_library(ImPlot STATIC ${IMPLOT_SOURCES})
+
+# target_include_directories(ImPLot
+# PRIVATE
+# ${imgui_INCLUDEDIR}
+# )
 target_link_libraries(ImPlot PRIVATE imgui_target)
-target_include_directories(ImPLot 
-        PUBLIC 
-            ${IMPLOT_SOURCES} 
-            
-        PRIVATE
-            ${imgui_target_INCLUDEDIR}
-)
 
 # Install
 install(TARGETS ImPlot DESTINATION lib)
