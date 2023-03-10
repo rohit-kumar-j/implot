@@ -34,6 +34,12 @@ add_library(ImPlot STATIC ${IMPLOT_SOURCES})
 target_link_libraries(ImPlot PRIVATE imgui_target)
 target_include_directories(ImPlot PUBLIC ${imgui_target_INCLUDEDIR})
 
+# TODO: Verify if the sources do not conflit in the final .lib file.. i.e linking errors
+file(GLOB_RECURSE IMGUI_RELEASE_HEADERS
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/x64-Release/imgui/include/imgui/*.h
+)
+
 # Install
 install(TARGETS ImPlot DESTINATION lib)
 install(FILES ${IMPLOT_HEADERS} DESTINATION include/implot)
+install(FILES ${IMGUI_RELEASE_HEADERS} DESTINATION include/implot)
