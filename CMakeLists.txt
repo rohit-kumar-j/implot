@@ -26,7 +26,13 @@ file(GLOB IMPLOT_SOURCES
 
 add_library(ImPlot STATIC ${IMPLOT_SOURCES})
 target_link_libraries(ImPlot PRIVATE imgui_target)
-target_include_directories(ImPLot PUBLIC ${IMPLOT_SOURCES})
+target_include_directories(ImPLot 
+        PUBLIC 
+            ${IMPLOT_SOURCES} 
+            
+        PRIVATE
+            ${imgui_target_INCLUDEDIR}
+)
 
 # Install
 install(TARGETS ImPlot DESTINATION lib)
