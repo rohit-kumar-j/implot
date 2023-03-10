@@ -14,8 +14,9 @@ BuildExternalProject(
     INSTALL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external
     BUILD_TYPE Release
     ARCHITECTURE x64
-    BUILD_IN_SOURCE TRUE
+    BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external
 )
+
 append_cmake_prefix_path(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/x64-Release/imgui)
 
 # include(FetchContent)
