@@ -14,10 +14,10 @@ BuildExternalProject(
     INSTALL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external
     BUILD_TYPE Release
     ARCHITECTURE x64
-    BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external
+    BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-append_cmake_prefix_path(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/x64-Release/imgui)
+set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/x64-Release/imgui/include/imgui CACHE PATH "" FORCE) # This is highly convoluted
 
 # include(FetchContent)
 # FetchContent_Declare(imgui GIT_REPOSITORY https://github.com/rohit-kumar-j/imgui.git)
