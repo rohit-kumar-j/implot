@@ -14,7 +14,7 @@ function(BuildExternalProject)
         INSTALL_PATH # "${PROJECT_SOURCE_DIR}/external" in this example
         BUILD_TYPE # "Release", "Debug" ...
         ARCHITECTURE # "x64","x86"...
-        BUILD_IN_SOURCE # If there are other install targets
+        BINARY_DIR # If there are other install targets
     )
     set(multi_value_args
         EXTRA_CMAKE_ARGS
@@ -58,11 +58,11 @@ function(BuildExternalProject)
         BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --target install --config ${_ARGS_BUILD_TYPE}
         COMMAND ${_ARGS_EXT_BUILD_ARGS}
 
+        BINARY_DIR ${_ARGS_BINARY_DIR}
+
         # Commands to install
         INSTALL_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --target install --config ${_ARGS_BUILD_TYPE}
         COMMAND ${_ARGS_EXT_INSTALL_ARGS}
-
-        BUILD_IN_SOURCE ${_ARGS_BUILD_IN_SOURCE}
 
         CONFIGURE_HANDLED_BY_BUILD ON # No config steps are passed
         BUILD_ALWAYS FALSE
