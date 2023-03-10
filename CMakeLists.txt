@@ -14,10 +14,10 @@ BuildExternalProject(
     INSTALL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external
     BUILD_TYPE Release
     ARCHITECTURE x64
-    BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/x64-Release/imgui/include/imgui CACHE PATH "" FORCE) # This is highly convoluted
+set(CMAKE_BUILD_TYPE Release CACHE PATH "" FORCE) # This is highly convoluted
 
 # include(FetchContent)
 # FetchContent_Declare(imgui GIT_REPOSITORY https://github.com/rohit-kumar-j/imgui.git)
@@ -28,12 +28,15 @@ set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/x64-Release/imgui/inc
 # endif()
 file(GLOB IMPLOT_SOURCES
     implot.cpp
-    implot.h
     implot_demo.cpp
-    implot_internal.h
     implot_items.cpp
 )
+file(GLOB IMPLOT_HEADERS
+    implot.h
+    implot_internal.h
+)
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/external/x64-Release/imgui/include/imgui)
 add_library(ImPlot STATIC ${IMPLOT_SOURCES})
 
 # target_include_directories(ImPLot
@@ -44,4 +47,4 @@ target_link_libraries(ImPlot PRIVATE imgui_target)
 
 # Install
 install(TARGETS ImPlot DESTINATION lib)
-install(FILES ${IMPLOT_SOURCES} DESTINATION include/ImPlot)
+install(FILES ${IMPLOT_HEADERS} DESTINATION include/ImPlot)
